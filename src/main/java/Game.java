@@ -13,7 +13,7 @@ public class Game {
         // возможность дублирования игроков (принимаем за истину, что name - уникальный параметр)
 
         if (findByName(player.getName()) == player) {
-            System.out.println("Игрок с таким именем уже зарегистрирован!");
+            throw new NotAddedException("Пользователь с именем " + player + " уже зарегистрирован. Выберите другое имя");
         } else {
             registeredPlayers.add(player);
         }
@@ -22,13 +22,15 @@ public class Game {
     }
 
     public Player findByName(String name) {
-
+        Player tmp = null;
         for (int i = 0; i < registeredPlayers.size(); i++) {
             if (registeredPlayers.get(i).getName() == name) {
-                return registeredPlayers.get(i);
+                tmp = registeredPlayers.get(i);
+            } else {
+                tmp = null;
             }
         }
-        return null;
+        return tmp;
     }
 
 

@@ -10,8 +10,7 @@ public class GameTest {
     Player player6 = new Player(352, "lion", 9);
     Player player7 = new Player(352, "smk", 1);
 
-    // подать несуществующего игрока, подать двух несуществующих игроков, подать двух одинаковых игроков, испчтать три варианта исхода турнира
-
+    // подать несуществующего игрока, подать двух несуществующих игроков, подать двух одинаковых игроков
 
     // Два зарегестрированных игрока  с разными именами
     @Test
@@ -45,7 +44,7 @@ public class GameTest {
     }
 
     @Test
-    public void test3(){
+    public void test3() {
         Game game = new Game();
         game.register(player1);
         game.register(player2);
@@ -59,4 +58,21 @@ public class GameTest {
 
     }
 
+    @Test
+    public void test4() {
+        Game game = new Game();
+        game.register(player2);
+        game.register(player3);
+        game.register(player7);
+        game.register(player6);
+
+        Assertions.assertThrows(NotAddedException.class, () -> {
+            game.round("lion", "king");
+        });
+    }
+
+    @Test
+    public void test5(){
+
+    }
 }
