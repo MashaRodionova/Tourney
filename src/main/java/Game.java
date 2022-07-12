@@ -6,33 +6,24 @@ public class Game {
     private ArrayList<Player> registeredPlayers = new ArrayList<>();
 
 
-    public ArrayList register(Player player) {
+    public void register(Player player) {
 
-
-        // тк в задании по условиям мы должны использовать список, а не мапы, исключаем
-        // возможность дублирования игроков (принимаем за истину, что name - уникальный параметр)
-
-        if (findByName(player.getName()) == player) {
-            throw new NotAddedException("Пользователь с именем " + player + " уже зарегистрирован. Выберите другое имя");
-        } else {
+        if (findByName(player.getName()) == null) {
             registeredPlayers.add(player);
+        } else {
+            throw new NotRegisteredException("Игрок с таким именем уже существует");
         }
-
-        return registeredPlayers;
     }
 
     public Player findByName(String name) {
-        Player tmp = null;
+
         for (int i = 0; i < registeredPlayers.size(); i++) {
             if (registeredPlayers.get(i).getName() == name) {
-                tmp = registeredPlayers.get(i);
-            } else {
-                tmp = null;
+                return registeredPlayers.get(i);
             }
         }
-        return tmp;
+        return null;
     }
-
 
     public int round(String playerName1, String playerName2) {
 
@@ -51,13 +42,13 @@ public class Game {
                 }
 
             }
+        } else if (findByName(playerName1) == null & findByName(playerName2) == null) {
+            throw new NotRegisteredException("Игроки " + playerName1 + " и " + playerName2 + " не зарегистрированы");
+
         } else if (findByName(playerName1) == null) {
             throw new NotRegisteredException("Игрок " + playerName1 + " не зарегистрирован");
         } else if (findByName(playerName2) == null) {
             throw new NotRegisteredException("Игрок " + playerName2 + " не зарегистрирован");
-        } else if (findByName(playerName1) == null & findByName(playerName2) == null) {
-            throw new NotRegisteredException("Игроки " + playerName1 + " и " + playerName2 + " не зарегистрированы");
-
         }
         return result;
     }

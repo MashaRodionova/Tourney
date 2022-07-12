@@ -13,9 +13,6 @@ public class Player {
         return name;
     }
 
-    public int getId() {
-        return id;
-    }
 
     public int getStrength() {
         return strength;
