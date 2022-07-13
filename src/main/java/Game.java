@@ -28,27 +28,29 @@ public class Game {
     public int round(String playerName1, String playerName2) {
 
         int result = 7;
+        Player first = findByName(playerName1);
+        Player second = findByName(playerName2);
 
-        if (findByName(playerName1) != null & findByName(playerName2) != null) {
+        if (first != null & second != null) {
 
             for (int i = 0; i < registeredPlayers.size(); i++) {
 
-                if (findByName(playerName1).getStrength() == findByName(playerName2).getStrength()) {
+                if (first.getStrength() == second.getStrength()) {
                     result = 0;
-                } else if (findByName(playerName1).getStrength() > findByName(playerName2).getStrength()) {
+                } else if (first.getStrength() > second.getStrength()) {
                     result = 1;
                 } else {
                     result = 2;
                 }
 
             }
-        } else if (findByName(playerName1) == null & findByName(playerName2) == null) {
-            throw new NotRegisteredException("Игроки " + playerName1 + " и " + playerName2 + " не зарегистрированы");
+        } else if (first == null & second == null) {
+            throw new NotRegisteredException("Игроки " + first + " и " + second + " не зарегистрированы");
 
-        } else if (findByName(playerName1) == null) {
-            throw new NotRegisteredException("Игрок " + playerName1 + " не зарегистрирован");
-        } else if (findByName(playerName2) == null) {
-            throw new NotRegisteredException("Игрок " + playerName2 + " не зарегистрирован");
+        } else if (first == null) {
+            throw new NotRegisteredException("Игрок " + first + " не зарегистрирован");
+        } else if (second == null) {
+            throw new NotRegisteredException("Игрок " + second + " не зарегистрирован");
         }
         return result;
     }
