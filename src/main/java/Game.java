@@ -5,10 +5,7 @@ import java.util.Map;
 public class Game {
 
     private HashMap<String, Integer> registeredPlayers = new HashMap<>();
-
-    public HashMap<String, Integer> getRegisteredPlayers() {
-        return registeredPlayers;
-    }
+    
 
     public void register(String name, Integer strength) {
 
