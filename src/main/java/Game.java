@@ -1,26 +1,33 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
 
-    private ArrayList<Player> registeredPlayers = new ArrayList<>();
+    private HashMap<String, Integer> registeredPlayers = new HashMap<>();
 
 
-    public void register(Player player) {
+    public void register(String name, Integer strength) {
 
-        if (findByName(player.getName()) == null) {
-            registeredPlayers.add(player);
-        } else {
+
+        if (findByName(name) == name) {
             throw new NotRegisteredException("Игрок с таким именем уже существует");
+
+        } else {
+            registeredPlayers.put(name, strength);
         }
+
+
     }
 
-    public Player findByName(String name) {
 
-        for (int i = 0; i < registeredPlayers.size(); i++) {
-            if (registeredPlayers.get(i).getName() == name) {
-                return registeredPlayers.get(i);
+    public String findByName(String playerName) {
+
+        for (String key : registeredPlayers.keySet()) {
+            if (key == playerName) {
+                return key;
             }
+
         }
         return null;
     }
@@ -28,16 +35,16 @@ public class Game {
     public int round(String playerName1, String playerName2) {
 
         int result = 7;
-        Player first = findByName(playerName1);
-        Player second = findByName(playerName2);
+        String first = findByName(playerName1);
+        String second = findByName(playerName2);
 
         if (first != null & second != null) {
 
-            for (int i = 0; i < registeredPlayers.size(); i++) {
+            for (String key : registeredPlayers.keySet()) {
 
-                if (first.getStrength() == second.getStrength()) {
+                if (registeredPlayers.get(first) == registeredPlayers.get(second)) {
                     result = 0;
-                } else if (first.getStrength() > second.getStrength()) {
+                } else if (registeredPlayers.get(first) > registeredPlayers.get(second)) {
                     result = 1;
                 } else {
                     result = 2;
@@ -49,7 +56,7 @@ public class Game {
 
         } else if (first == null) {
             throw new NotRegisteredException("Игрок " + first + " не зарегистрирован");
-        } else if (second == null) {
+        } else {
             throw new NotRegisteredException("Игрок " + second + " не зарегистрирован");
         }
         return result;
