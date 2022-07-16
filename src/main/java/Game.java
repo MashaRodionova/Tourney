@@ -5,7 +5,7 @@ import java.util.Map;
 public class Game {
 
     private HashMap<String, Integer> registeredPlayers = new HashMap<>();
-    
+
 
     public void register(String name, Integer strength) {
 
@@ -56,7 +56,7 @@ public class Game {
 
         } else if (first == null) {
             throw new NotRegisteredException("Игрок " + first + " не зарегистрирован");
-        } else if (second == null) {
+        } else {
             throw new NotRegisteredException("Игрок " + second + " не зарегистрирован");
         }
         return result;
